@@ -70,6 +70,14 @@ public class CentreOperation extends TransporteurMessage{
 	private CentreOperation(){
 		super();
 	}
+	
+	
+	
+	
+	public Vect2D getPositionRover() {
+		return positionRover;
+	}
+	
 
 	/**
 	 * Méthode permettant d'obtenir une référence sur le centre de contrôle
@@ -173,6 +181,8 @@ public class CentreOperation extends TransporteurMessage{
 			System.out.println("Status reçu");
 			System.out.println("    position du Rover: " + msgStatus.getPosition());
 			positionRover = msgStatus.getPosition();
+			
+			this.notifierObservateurs(); //afficher la position dans le GUI en notifiant l'observateur
 		}
 	}
 	

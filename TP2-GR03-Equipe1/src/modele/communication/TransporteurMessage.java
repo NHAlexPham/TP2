@@ -37,8 +37,9 @@ import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 import utilitaires.CompteurMessage;
+import utilitaires.Observable;
 
-public abstract class TransporteurMessage implements Runnable{
+public abstract class TransporteurMessage extends Observable implements Runnable{
 	
 	// compteur de message
 	protected CompteurMessage compteurMsg;
