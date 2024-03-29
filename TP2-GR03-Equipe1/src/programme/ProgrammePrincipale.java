@@ -17,6 +17,8 @@ public class ProgrammePrincipale {
 	 */
 	public static void main(String[] args){
 
+		// Testing
+
 		// instantie la lune
 		Lune lune = Lune.getInstance();		
 		// instantie le satellite relai
