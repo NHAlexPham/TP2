@@ -1,11 +1,20 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-public class PanneauPrincipale extends JPanel{
+import utilitaires.Observable;
+import utilitaires.Observateur;
+
+public class PanneauPrincipale extends JPanel implements Observateur{
+	
+	
+	private JPanel console = new Console();
+	private JPanel visuelRover = new VisuelRover();
+	
 	
 	public PanneauPrincipale() {
 		
@@ -22,5 +31,21 @@ public class PanneauPrincipale extends JPanel{
 		
 		
 	}
+	
+	public JPanel getConsole() {
+		return console;
+	}
 
+	@Override
+	public void seMettreAJour(Observable observable) {
+		
+		
+		System.out.println("seMettreAJour dans le panneau principal");
+		
+		((Observateur) console).seMettreAJour(observable);
+		
+		
+	}
+
+	
 }

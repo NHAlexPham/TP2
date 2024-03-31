@@ -182,6 +182,7 @@ public class CentreOperation extends TransporteurMessage{
 			System.out.println("    position du Rover: " + msgStatus.getPosition());
 			positionRover = msgStatus.getPosition();
 			
+			
 			this.notifierObservateurs(); //afficher la position dans le GUI en notifiant l'observateur
 		}
 	}

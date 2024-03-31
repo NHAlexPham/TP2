@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -8,12 +9,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class CadrePrincipal extends JFrame{
+import utilitaires.Observable;
+import utilitaires.Observateur;
 
+public class CadrePrincipal extends JFrame implements Observateur{
+
+	
+	private JPanel panneauPrincipale = new PanneauPrincipale();
 	
 	public CadrePrincipal(){
 		
-		JPanel panneauPrincipale = new PanneauPrincipale();
 		
 		this.add(panneauPrincipale);
 		
@@ -35,6 +40,23 @@ public class CadrePrincipal extends JFrame{
                 }
             }
         });
+	}
+	
+	
+	public JPanel getPanneauPrincipale() {
+		
+		return panneauPrincipale;
+	}
+
+
+	@Override
+	public void seMettreAJour(Observable observable) {
+		
+		System.out.println("seMettreAJour dans le cadre principal");
+		
+		((Observateur) panneauPrincipale).seMettreAJour(observable);
+		
+		
 	}
 	
 }

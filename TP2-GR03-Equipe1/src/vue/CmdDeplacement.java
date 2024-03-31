@@ -54,17 +54,19 @@ public class CmdDeplacement extends JPanel implements Observateur{
 
 		if(observable instanceof CentreOperation) {
 			
-			((PosCourante) posCourante).getPosCourX().setText("Pos courante X: " + ((CentreOperation) observable).getPositionRover().getX());
-			((PosCourante) posCourante).getPosCourY().setText("Pos courante X: " + ((CentreOperation) observable).getPositionRover().getY());
 			
-			System.out.println("position modifie");
+			System.out.println("seMettreAJour dans la cmdDeplacement");
+			
+			((Observateur) posCourante).seMettreAJour(observable);
+			
+			
 		}
 		
 		
 	}
 	
 	
-	class PosCourante extends JPanel{
+	class PosCourante extends JPanel implements Observateur{
 			
 		JPanel posCour = new JPanel();
 		
@@ -88,6 +90,22 @@ public class CmdDeplacement extends JPanel implements Observateur{
 		
 		public JLabel getPosCourY() {
 			return posCourY;
+		}
+
+		@Override
+		public void seMettreAJour(Observable observable) {
+		
+			
+			
+			System.out.println("seMettreAJour dans la posCour");
+			
+			System.out.println("en x: " + ((CentreOperation) observable).getPositionRover().getX());
+			System.out.println("en y: " + ((CentreOperation) observable).getPositionRover().getY());
+			
+			posCourX.setText("Pos courante X: " + ((CentreOperation) observable).getPositionRover().getX());
+			posCourY.setText("Pos courante Y: " + ((CentreOperation) observable).getPositionRover().getY());
+
+			
 		}
 
 		

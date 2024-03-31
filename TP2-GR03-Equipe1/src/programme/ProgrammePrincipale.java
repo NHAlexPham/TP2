@@ -8,6 +8,7 @@ import modele.centreOperation.CentreOperation;
 import modele.environnement.Lune;
 import modele.rover.Rover;
 import modele.satelliteRelai.SatelliteRelai;
+import utilitaires.Observateur;
 import utilitaires.Vect2D;
 import vue.CadrePrincipal;
 
@@ -43,8 +44,12 @@ public class ProgrammePrincipale {
 		centreOPTache.start();
 		roverTache.start();
 		
-
+		//demarre le GUI
 		JFrame cadre = new CadrePrincipal();
+		
+
+		centreOp.getInstance().ajouterObservateur((Observateur) cadre);
+		
 		
 	}
 
