@@ -151,6 +151,8 @@ public class Rover extends TransporteurMessage{
 		status = new Status(compteurMsg.getCompteActuel(),position.clone());
 		envoyerMessage(status);
 		messageEnvoyes.add(status);
+		
+		this.notifierObservateurs(); //notifie le visuelPhoto qu'il faut update
 	}
 	
 
@@ -184,5 +186,8 @@ public class Rover extends TransporteurMessage{
 			System.out.println("echec prise image");
 			System.out.println(e.getMessage());
 		}
+		
+		
+		this.notifierObservateurs(); //update la jlist pour ajouter le nom dans la liste des photos
 	}
 }

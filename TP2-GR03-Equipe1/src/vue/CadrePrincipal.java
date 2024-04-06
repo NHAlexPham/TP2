@@ -1,6 +1,8 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -8,39 +10,47 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class CadrePrincipal extends JFrame{
+import utilitaires.Observable;
+import utilitaires.Observateur;
 
-	public static void main(String args[]){
+public class CadrePrincipal extends JFrame implements Observateur{
+
+	
+	private JPanel panneauPrincipale = new PanneauPrincipale();
+	
+	
+	public CadrePrincipal(){
 		
-		JFrame f = new CadrePrincipal();
+		this.add(panneauPrincipale);
+		
+		this.setTitle("Satellite");
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setSize(1000, 700);
+		this.setVisible(true);
 		
 		
-		f.setTitle("Satellite");
-		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		f.setSize(1000,700);
-		f.setResizable(false);
-		f.setVisible(true);
-		
-		f.addWindowListener(new WindowAdapter() {
+		this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
                 Object[] options = { "Quitter", "Annuler" };
 
-                int answer = JOptionPane.showOptionDialog(f, "Voulez-vous quitter? ", "Quitter",
+                int answer = JOptionPane.showOptionDialog(CadrePrincipal.this, "Voulez-vous quitter? ", "Quitter",
                         JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[1]);
                 if (answer == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
             }
         });
-		
 	}
 	
-	public CadrePrincipal(){
+
+
+	@Override
+	public void seMettreAJour(Observable observable) {
 		
-		JPanel panneauPrincipale = new PanneauPrincipale();
+		System.out.println("seMettreAJour dans le cadre principal");
 		
-		this.add(panneauPrincipale);
+		((Observateur) panneauPrincipale).seMettreAJour(observable);
 		
 		
 	}

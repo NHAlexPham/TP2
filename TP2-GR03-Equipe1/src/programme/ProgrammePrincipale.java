@@ -2,11 +2,15 @@ package programme;
 
 import java.io.IOException;
 
+import javax.swing.JFrame;
+
 import modele.centreOperation.CentreOperation;
 import modele.environnement.Lune;
 import modele.rover.Rover;
 import modele.satelliteRelai.SatelliteRelai;
+import utilitaires.Observateur;
 import utilitaires.Vect2D;
+import vue.CadrePrincipal;
 
 public class ProgrammePrincipale {
 
@@ -33,12 +37,23 @@ public class ProgrammePrincipale {
 		satellite.lierCentrOp(centreOp);
 		satellite.lierRover(rover);
 
+		
+		//demarre le GUI
+		JFrame cadre = new CadrePrincipal();
+	
+		centreOp.ajouterObservateur((Observateur) cadre);
+		
+		
+		
 		// démarre les tâches
 		Thread roverTache = new Thread(rover);
 		Thread centreOPTache = new Thread(centreOp);
 		satellite.start();
 		centreOPTache.start();
 		roverTache.start();
+		
+
+		
 		
 	}
 
