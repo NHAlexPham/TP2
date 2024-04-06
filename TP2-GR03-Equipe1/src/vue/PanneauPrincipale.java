@@ -22,6 +22,7 @@ public class PanneauPrincipale extends JPanel implements Observateur{
 		JPanel console = new Console();
 		JPanel visuelRover = new VisuelRover();
 		
+		
 		console.setPreferredSize(new Dimension(250, 700));
 		visuelRover.setPreferredSize(new Dimension(750, 700));
 		
@@ -43,7 +44,6 @@ public class PanneauPrincipale extends JPanel implements Observateur{
 		System.out.println("seMettreAJour dans le panneau principal");
 		
 		((Observateur) console).seMettreAJour(observable);
-		
 		
 	}
 

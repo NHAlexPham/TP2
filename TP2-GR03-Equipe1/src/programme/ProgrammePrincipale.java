@@ -37,6 +37,14 @@ public class ProgrammePrincipale {
 		satellite.lierCentrOp(centreOp);
 		satellite.lierRover(rover);
 
+		
+		//demarre le GUI
+		JFrame cadre = new CadrePrincipal();
+	
+		centreOp.ajouterObservateur((Observateur) cadre);
+		
+		
+		
 		// démarre les tâches
 		Thread roverTache = new Thread(rover);
 		Thread centreOPTache = new Thread(centreOp);
@@ -44,11 +52,7 @@ public class ProgrammePrincipale {
 		centreOPTache.start();
 		roverTache.start();
 		
-		//demarre le GUI
-		JFrame cadre = new CadrePrincipal();
-		
 
-		centreOp.getInstance().ajouterObservateur((Observateur) cadre);
 		
 		
 	}

@@ -2,6 +2,7 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -17,16 +18,16 @@ public class CadrePrincipal extends JFrame implements Observateur{
 	
 	private JPanel panneauPrincipale = new PanneauPrincipale();
 	
+	
 	public CadrePrincipal(){
-		
 		
 		this.add(panneauPrincipale);
 		
 		this.setTitle("Satellite");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.setSize(1000,700);
-		this.setResizable(false);
+		this.setSize(1000, 700);
 		this.setVisible(true);
+		
 		
 		this.addWindowListener(new WindowAdapter() {
             @Override
@@ -42,11 +43,6 @@ public class CadrePrincipal extends JFrame implements Observateur{
         });
 	}
 	
-	
-	public JPanel getPanneauPrincipale() {
-		
-		return panneauPrincipale;
-	}
 
 
 	@Override

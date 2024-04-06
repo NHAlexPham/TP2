@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import modele.centreOperation.CentreOperation;
+import utilitaires.EcouteurBtnDeplacer;
 import utilitaires.Observable;
 import utilitaires.Observateur;
 
@@ -21,11 +22,14 @@ public class CmdDeplacement extends JPanel implements Observateur{
 	
 	JPanel posCible = new JPanel(new GridLayout(3, 1, 0, 3));
 	
-	JPanel posCourante = new PosCourante();
+	PosCourante posCourante = new PosCourante();
 	JPanel posCibleX = new PosCible("Pos cible X: ");
 	JPanel posCibleY = new PosCible("Pos cible Y: ");
 	
 	JButton deplacerRover = new JButton("Deplacer Rover");
+	
+	EcouteurBtnDeplacer ect = new EcouteurBtnDeplacer(((PosCible) posCibleX).getValeur(), ((PosCible) posCibleY).getValeur());
+	
 	
 	
 	public CmdDeplacement() {
@@ -44,85 +48,76 @@ public class CmdDeplacement extends JPanel implements Observateur{
 		this.setBackground(Color.DARK_GRAY);			//set le background a gris fonce
 		this.setBorder(BorderFactory.createLineBorder(Color.WHITE));	//set la bordure a blanc
 		
+		deplacerRover.addActionListener(ect);
 		
 		
 	
 	}
+	
 	
 	@Override
 	public void seMettreAJour(Observable observable) {
 
 		if(observable instanceof CentreOperation) {
 			
-			
 			System.out.println("seMettreAJour dans la cmdDeplacement");
 			
-			((Observateur) posCourante).seMettreAJour(observable);
+			System.out.println("en x: " + ((CentreOperation) observable).getPositionRover().getX());
+			System.out.println("en y: " + ((CentreOperation) observable).getPositionRover().getY());
 			
+			double posX = ((CentreOperation) observable).getPositionRover().getX();
+			double posY = ((CentreOperation) observable).getPositionRover().getY();
 			
+			posCourante.updatePos(posX, posY);
+			
+
 		}
-		
-		
 	}
 	
 	
-	class PosCourante extends JPanel implements Observateur{
+	class PosCourante extends JPanel{
 			
-		JPanel posCour = new JPanel();
-		
 		JLabel posCourX = new JLabel("Pos courante X: xxx");
 		JLabel posCourY = new JLabel("Pos courante Y: yyy");
 		
 		public PosCourante() {
 			
-			posCour.setPreferredSize(new Dimension(130, 45));
+			this.setPreferredSize(new Dimension(130, 45));
 			
-			posCour.add(posCourX);
-			posCour.add(posCourY);
-			
-			this.add(posCour);
+			this.add(posCourX);
+			this.add(posCourY);
 			
 		}
 		
-		public JLabel getPosCourX() {
-			return posCourX;
+		public void updatePos(double posX, double posY) {
+			
+			posCourX.setText("Pos courante X: " + posX);
+			posCourY.setText("Pos courante Y: " + posY);
 		}
 		
-		public JLabel getPosCourY() {
-			return posCourY;
-		}
 
-		@Override
-		public void seMettreAJour(Observable observable) {
-		
-			
-			
-			System.out.println("seMettreAJour dans la posCour");
-			
-			System.out.println("en x: " + ((CentreOperation) observable).getPositionRover().getX());
-			System.out.println("en y: " + ((CentreOperation) observable).getPositionRover().getY());
-			
-			posCourX.setText("Pos courante X: " + ((CentreOperation) observable).getPositionRover().getX());
-			posCourY.setText("Pos courante Y: " + ((CentreOperation) observable).getPositionRover().getY());
-
-			
-		}
-
-		
 	}
 	
 	class PosCible extends JPanel{
 		
+		
+		JLabel posCible;
+		JTextField valeur = new JTextField();
+		
 		public PosCible(String text) {
 			
-			JLabel posCible = new JLabel(text);
-			JTextField valeur = new JTextField();
-			
+			posCible  = new JLabel(text);
 			valeur.setPreferredSize(new Dimension(70, 25));
 			
 			this.add(posCible);
 			this.add(valeur);
 		}
+	
+		public JTextField getValeur() {
+			
+			return valeur;
+		}
+		
 		
 	}
 
