@@ -40,10 +40,7 @@ public class ProgrammePrincipale {
 		
 		//demarre le GUI
 		JFrame cadre = new CadrePrincipal();
-	
-		centreOp.ajouterObservateur((Observateur) cadre);
-		
-		
+			
 		
 		// démarre les tâches
 		Thread roverTache = new Thread(rover);

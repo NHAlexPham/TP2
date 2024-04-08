@@ -33,11 +33,14 @@ public class GestionPhotos extends JPanel implements Observateur{
 	JProgressBar progres = new JProgressBar();
 	JList<String> liste = new JList<String>();
 	
-	EcouteurBtnPrendrePhoto ect = new EcouteurBtnPrendrePhoto();
+	CentreOperation centreOp = CentreOperation.getInstance();
+	EcouteurBtnPrendrePhoto ect = new EcouteurBtnPrendrePhoto(centreOp);
 	
 	
 	public GestionPhotos() {
 		 
+		centreOp.ajouterObservateur(this);
+		
 		
 		//ajoute le bouton et la barre de progres dans le panneau nord
 		photoProgres.add(prendrePhoto);
@@ -100,22 +103,19 @@ public class GestionPhotos extends JPanel implements Observateur{
 	@Override
 	public void seMettreAJour(Observable observable) {
 
+		
+		double valProgres = 0;
 
 		if(observable instanceof CentreOperation) {
 			
-			double valProgres;
-			
 			valProgres = ((CentreOperation) observable).getProgresFichier();
 			
-			progres.setValue((int)valProgres); // affiche le progres dans la progress bar
-
+			 progres.setValue((int) (valProgres * 100)); // affiche le progres dans la progress bar
 			
 		}
-		else if(observable instanceof Rover) {
-
+		
 			listePhotos(); //update la Jlist 
-			
-		}
+		
 		
 	}
 	

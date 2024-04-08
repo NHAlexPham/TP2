@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import utilitaires.Observable;
 import utilitaires.Observateur;
 
-public class CadrePrincipal extends JFrame implements Observateur{
+public class CadrePrincipal extends JFrame{
 
 	
 	private JPanel panneauPrincipale = new PanneauPrincipale();
@@ -44,15 +44,5 @@ public class CadrePrincipal extends JFrame implements Observateur{
 	}
 	
 
-
-	@Override
-	public void seMettreAJour(Observable observable) {
-		
-		System.out.println("seMettreAJour dans le cadre principal");
-		
-		((Observateur) panneauPrincipale).seMettreAJour(observable);
-		
-		
-	}
 	
 }

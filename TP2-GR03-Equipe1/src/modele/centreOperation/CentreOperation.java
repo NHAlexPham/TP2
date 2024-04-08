@@ -175,6 +175,8 @@ public class CentreOperation extends TransporteurMessage{
 					
 					System.out.println("Reception d'une photo, terminé");
 					
+					this.notifierObservateurs(); //update la jlist a la fin de la prise de photo
+					
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -61,6 +61,10 @@ public class Rover extends TransporteurMessage{
 		envoyerMessage(status);
 		messageEnvoyes.add(status);
 	}
+	
+	public Vect2D getPosition() {
+		return position;
+	}
 
 	/**
 	 * méthode permettant d'envoyer un message à destination du centre de contrôle
@@ -152,7 +156,6 @@ public class Rover extends TransporteurMessage{
 		envoyerMessage(status);
 		messageEnvoyes.add(status);
 		
-		this.notifierObservateurs(); //notifie le visuelPhoto qu'il faut update
 	}
 	
 
@@ -175,6 +178,8 @@ public class Rover extends TransporteurMessage{
 				MorceauImage morceauImage = new MorceauImage(compteurMsg.getCompteActuel(),chunk.clone(),tailleTotale);
 				envoyerMessage(morceauImage);
 				messageEnvoyes.add(morceauImage);
+				
+				
 			}
 			
 			// envoi le message indiquant la fin de la photo
@@ -182,12 +187,12 @@ public class Rover extends TransporteurMessage{
 			envoyerMessage(morceauImage);
 			messageEnvoyes.add(morceauImage);
 			
+			
+			
 		}catch(Exception e) {
 			System.out.println("echec prise image");
 			System.out.println(e.getMessage());
 		}
 		
-		
-		this.notifierObservateurs(); //update la jlist pour ajouter le nom dans la liste des photos
 	}
 }

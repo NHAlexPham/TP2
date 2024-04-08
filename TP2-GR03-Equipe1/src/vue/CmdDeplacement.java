@@ -20,6 +20,8 @@ import utilitaires.Observateur;
 
 public class CmdDeplacement extends JPanel implements Observateur{
 	
+	CentreOperation centreOp = CentreOperation.getInstance();
+	
 	JPanel posCible = new JPanel(new GridLayout(3, 1, 0, 3));
 	
 	PosCourante posCourante = new PosCourante();
@@ -28,11 +30,13 @@ public class CmdDeplacement extends JPanel implements Observateur{
 	
 	JButton deplacerRover = new JButton("Deplacer Rover");
 	
-	EcouteurBtnDeplacer ect = new EcouteurBtnDeplacer(((PosCible) posCibleX).getValeur(), ((PosCible) posCibleY).getValeur());
+	EcouteurBtnDeplacer ect = new EcouteurBtnDeplacer(((PosCible) posCibleX).getValeur(), ((PosCible) posCibleY).getValeur(), centreOp);
 	
 	
 	
 	public CmdDeplacement() {
+		
+		centreOp.ajouterObservateur((Observateur)this);
 		
 		posCible.setBackground(Color.DARK_GRAY);		//set le background a gris fonce
 		posCible.setPreferredSize(new Dimension(200, 100));
@@ -60,13 +64,18 @@ public class CmdDeplacement extends JPanel implements Observateur{
 
 		if(observable instanceof CentreOperation) {
 			
-			System.out.println("seMettreAJour dans la cmdDeplacement");
+			CentreOperation centreOp = (CentreOperation) observable;
 			
-			System.out.println("en x: " + ((CentreOperation) observable).getPositionRover().getX());
-			System.out.println("en y: " + ((CentreOperation) observable).getPositionRover().getY());
 			
-			double posX = ((CentreOperation) observable).getPositionRover().getX();
-			double posY = ((CentreOperation) observable).getPositionRover().getY();
+			double posX = centreOp.getPositionRover().getX();
+			double posY = centreOp.getPositionRover().getY();
+			
+			
+			//garder 2 chiffres apres la virgule
+			posX = Math.round(posX * 100.0) / 100.0;
+			posY = Math.round(posY * 100.0) / 100.0;
+			
+			
 			
 			posCourante.updatePos(posX, posY);
 			
@@ -82,7 +91,8 @@ public class CmdDeplacement extends JPanel implements Observateur{
 		
 		public PosCourante() {
 			
-			this.setPreferredSize(new Dimension(130, 45));
+			this.setLayout(new FlowLayout(FlowLayout.LEFT));
+			this.setPreferredSize(new Dimension(150, 45));
 			
 			this.add(posCourX);
 			this.add(posCourY);
@@ -123,7 +133,6 @@ public class CmdDeplacement extends JPanel implements Observateur{
 
 
 }
-
 
 
 

@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import utilitaires.Observable;
 import utilitaires.Observateur;
 
-public class Console extends JPanel implements Observateur{
+public class Console extends JPanel{
 	
 	
 	private JPanel cmdDeplacement = new CmdDeplacement();
@@ -23,16 +23,6 @@ public class Console extends JPanel implements Observateur{
 	
 	public JPanel getCmdDeplacement() {
 		return cmdDeplacement;
-	}
-
-	@Override
-	public void seMettreAJour(Observable observable) {
-		
-		
-		System.out.println("seMettreAJour dans la console");
-		
-		((Observateur) cmdDeplacement).seMettreAJour(observable);
-		
 	}
 
 }

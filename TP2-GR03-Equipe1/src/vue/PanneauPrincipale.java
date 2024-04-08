@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import utilitaires.Observable;
 import utilitaires.Observateur;
 
-public class PanneauPrincipale extends JPanel implements Observateur{
+public class PanneauPrincipale extends JPanel{
 	
 	
 	private JPanel console = new Console();
@@ -35,16 +35,6 @@ public class PanneauPrincipale extends JPanel implements Observateur{
 	
 	public JPanel getConsole() {
 		return console;
-	}
-
-	@Override
-	public void seMettreAJour(Observable observable) {
-		
-		
-		System.out.println("seMettreAJour dans le panneau principal");
-		
-		((Observateur) console).seMettreAJour(observable);
-		
 	}
 
 	
