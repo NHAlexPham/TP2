@@ -2,12 +2,15 @@ package programme;
 
 import java.io.IOException;
 
+import controleur.MonObserver.Observateur;
 import modele.centreOperation.CentreOperation;
 import modele.environnement.Lune;
 import modele.rover.Rover;
 import modele.satelliteRelai.SatelliteRelai;
 import utilitaires.Vect2D;
 import vue.CadrePrincipale;
+
+import javax.swing.*;
 
 public class ProgrammePrincipale {
 
@@ -18,17 +21,19 @@ public class ProgrammePrincipale {
 	 */
 	public static void main(String[] args){
 
-		initialiser();
+		JFrame mainFrame = new CadrePrincipale("Devoir 02");
+
+		initialiser(mainFrame);
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new CadrePrincipale("Devoir 02").setVisible(true);
+				mainFrame.setVisible(true);
 			}
 		});
 		
 	}
 
-	private static void initialiser() {
+	private static void initialiser(JFrame mainFrame) {
 		// instantie la lune
 		Lune lune = Lune.getInstance();
 		// instantie le satellite relai
@@ -37,6 +42,8 @@ public class ProgrammePrincipale {
 		// instantie le centre d'opération
 		CentreOperation centreOp = CentreOperation.getInstance();
 		centreOp.attacherSatellite(satellite);
+
+		//centreOp.ajouterObservateur((Observateur) mainFrame);
 
 		// instantie le Rover
 		Rover rover = new Rover(satellite, lune, lune.obtenirPositionAlea());

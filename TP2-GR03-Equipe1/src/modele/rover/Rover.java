@@ -13,28 +13,18 @@ package modele.rover;
  * @author Frederic Simard, ETS
  * @version Hiver, 2024
  */
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.concurrent.locks.ReentrantLock;
 
 import modele.communication.CmdDeplacerRover;
 import modele.communication.Commande;
-import modele.communication.eCommande;
 import modele.environnement.Lune;
-import modele.communication.Constantes;
 import modele.communication.Message;
 import modele.communication.MorceauImage;
-import modele.communication.Nack;
-import modele.communication.NoOp;
 import modele.communication.Status;
 import modele.communication.TransporteurMessage;
 import modele.satelliteRelai.SatelliteRelai;
-import utilitaires.CompteurMessage;
 import utilitaires.Vect2D;
 
-public class Rover extends TransporteurMessage{
+public class Rover extends TransporteurMessage {
 	
 	private final static int TAILLE_CHUNK = 256;
 	

@@ -172,8 +172,16 @@ public class CentreOperation extends TransporteurMessage{
 			Status msgStatus = (Status)msg;
 			System.out.println("Status reçu");
 			System.out.println("    position du Rover: " + msgStatus.getPosition());
+
 			positionRover = msgStatus.getPosition();
+
+			notifierObservateurs();
 		}
+	}
+
+	public Vect2D getPositionRover(){
+
+		return positionRover;
 	}
 	
 }
