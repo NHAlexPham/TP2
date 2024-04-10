@@ -1,5 +1,18 @@
 package vue;
 
+/**
+ * Classe du panneau de la ligne graphique
+ * 
+ * Cette classe sert a definir la ligne et la dessiner
+ * 
+ * 
+ * Services offerts:
+ *  - dessine
+ * 
+ * @author Dyaa Abou Arida, ETS
+ * @version Hiver, 2024
+ */
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,7 +25,7 @@ public class LigneGraphique {
 
 	private Ligne ligne;
 	private Color couleur;
-	private TexteGraphique text = new TexteGraphique();
+	private TexteGraphique text = new TexteGraphique();	//texte qui identifie la position de la ligne 
 	
 	public LigneGraphique(Ligne ligne) {
 	
@@ -21,29 +34,34 @@ public class LigneGraphique {
 		
 	}
 	
-	
+	/*
+	 * methode qui permet de dessiner la ligne
+	 * @param g, parametre graphique
+	 */
 	public void dessine(Graphics g) {
 		
+		//valeur de x et y du point initial
 		int x1 = (int) ligne.getPoint1().getX();
 		int y1 = (int) ligne.getPoint1().getY();
 		
+		//valeur de x et y du point final
 		int x2 = (int) ligne.getPoint2().getX();
 		int y2 = (int) ligne.getPoint2().getY();
 		
-		// Create a copy of the Graphics instance
+		//cree uen copie de l'instance Graphics
         Graphics2D g2d = (Graphics2D) g.create();
 
-        // Set the stroke of the copy to dashed
+        //set la ligne a pointille
         Stroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
         g2d.setStroke(dashed);
 
-        // Draw the line with the copy
+        //dessine la ligne avec la copie
         g2d.setColor(couleur);
         g2d.drawLine(x1, y1, x2, y2);
 
-        // Dispose of the copy
+        //dispose de la copie
         g2d.dispose();
         
-        text.dessinerTexte(g);
+        text.dessinerTexte(g);	//dessine le texte (coordonne)
 	}
 }

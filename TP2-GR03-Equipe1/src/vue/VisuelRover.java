@@ -1,5 +1,23 @@
 package vue;
 
+/**
+ * Classe du panneau du visuel Rover
+ * 
+ * Cette classe sert a creer un panneau de  visuel Rover pour voir le deplacement et la position du rover en tout temps
+ * 
+ * 
+ * Services offerts:
+ *  - convertirPositionToPixel
+ *  - convertirLongueurToPixel
+ *  - ajouterCratereGraphique
+ *  - dessinerCratere
+ *  - paintComponent
+ *  - seMettreAJour
+ * 
+ * @author Dyaa Abou Arida, ETS
+ * @version Hiver, 2024
+ */
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -20,30 +38,31 @@ import utilitaires.Vect2D;
 public class VisuelRover extends JPanel implements Observateur{
 	
 
-	Lune lune = Lune.getInstance();
-	CentreOperation centreOp = CentreOperation.getInstance();
+	private Lune lune = Lune.getInstance();
+	private CentreOperation centreOp = CentreOperation.getInstance();
 	
-	ArrayList<CratereGraphique> listeCratereGraphique = new ArrayList<>();
-	ArrayList<Cratere> listeCratere = new ArrayList<>();
+	private ArrayList<CratereGraphique> listeCratereGraphique = new ArrayList<>();
+	private ArrayList<Cratere> listeCratere = new ArrayList<>();
 	
-	RoverGraphique roverG = new RoverGraphique(centreOp.getPositionRover());
+	private RoverGraphique roverG = new RoverGraphique(centreOp.getPositionRover());
 
 	
 	public VisuelRover() {
 		
-		centreOp.ajouterObservateur(this);
+		centreOp.ajouterObservateur(this);		//ajoute le panneau visuel rover a la liste des observateur du centre operation
 		
-		this.listeCratere = lune.getCrateres();
+		this.listeCratere = lune.getCrateres();	//recuperer la liste des crateres de la lune
 
+		this.setSize(1200, 750);				//set la taille du panneau
 		
-		this.setSize(1200, 750);
+		ajouterCratereGraphique();				//ajouter les crateres graphiques au viseul rover
 		
-		
-		
-		ajouterCratereGraphique();
 		}
 	
-	
+	/*
+	 * methode qui permet de convertir une position lunaire en position pixel
+	 * @param posMetre, position en metre a convertir
+	 */
 	private Vect2D convertirPositionToPixel(Vect2D posMetre) {
 		
 		double xPixel = 0;
@@ -61,19 +80,24 @@ public class VisuelRover extends JPanel implements Observateur{
 		return posPixel;
 	}
 	
+	
+	/*
+	 * methode qui permet de convertir une longueur lunaire en longueur pixel
+	 * @param longLuniare, longueur lunaire a convertir
+	 */
 	private double convertirLongueurToPixel(double longLunaire) {
 		
 		double longPixel = 0;
 		
-		longPixel = longLunaire * ((this.getWidth() / lune.getDim_Sit().getX()) + (this.getHeight() / lune.getDim_Sit().getY())) / 2;
-		
-		
-		
-		System.out.println("ca cest la longueur en pixel: " + longPixel);		
+		longPixel = longLunaire * ((this.getWidth() / lune.getDim_Sit().getX()) + (this.getHeight() / lune.getDim_Sit().getY())) / 2;		
 		
 		return longPixel;
 	}
 
+	
+	/*
+	 * methode qui permet de creer et de rajouter tout les crateres graphiques 
+	 */
 	public void ajouterCratereGraphique() {
 		
 		ListIterator<Cratere> iterateur = listeCratere.listIterator();
@@ -82,7 +106,7 @@ public class VisuelRover extends JPanel implements Observateur{
 			
 			Cratere cratere = iterateur.next(); // Stockez l'élément actuel pour lutiliser plusieurs fois
 		    
-		    CratereGraphique cratGraphique = new CratereGraphique(cratere);
+		    CratereGraphique cratGraphique = new CratereGraphique();
 		    cratGraphique.setPosConvertie(convertirPositionToPixel(cratere.getPosition()));
 		    cratGraphique.setRayonConvertie(convertirLongueurToPixel(cratere.getRayon()));
 		    
@@ -92,8 +116,13 @@ public class VisuelRover extends JPanel implements Observateur{
 	}
 	
 	
+	/*
+	 * methode qui permet de dessiner tout les crateres sur le panneau de visuel rover
+	 * @param g, parametre graphique
+	 */
 	public void dessinerCratere(Graphics g) {
 		
+		//boucle qui passe a travers la liste des crateres graphiques pour les dessiner
 		ListIterator<CratereGraphique> iterateur = listeCratereGraphique.listIterator();
 		while (iterateur.hasNext()) {
 			
@@ -102,12 +131,16 @@ public class VisuelRover extends JPanel implements Observateur{
 		}
 	}
 	
-	
+	/*
+	 * methode qui permet de dessiner le grid sur le panneau visuel rover
+	 * @param g, parametre graphique
+	 */
 	public void dessinerGrid(Graphics g) {
 		
 		
-		double conv = 68;
+		double conv = 68;	//distance entre chaques lignes
 		
+		//boucle qui place les 20 lignes verticales et les 20 lignes horizontales au bons endroits
 		
 		for(int i = 1; i <= 20; i++) {
 			
@@ -124,33 +157,41 @@ public class VisuelRover extends JPanel implements Observateur{
 		
 	}
 	
+	/*
+	 * redefinition de la methode paintComponent pour dessiner les objets graphiques
+	 * @param g, parametre graphique
+	 */
 	 @Override
 	 public void paintComponent(Graphics g) {
 		 
 		 //Appel de paint() de la classe mère, nécessaire pour dessiner le panneau.
 	     super.paintComponent(g);
 	        
-	     dessinerGrid(g);
-	     dessinerCratere(g);
+	     dessinerGrid(g);			//dessine le grid avec les positions sur le panneau
+	     dessinerCratere(g);		//dessine les crateres
 	     
-	     roverG.dessineRover(g);
+	     roverG.dessineRover(g);	//dessine le rover
 	     
-	
-	
 	        
 	    }
 
 
+	 /*
+	  * methode redefinie pour se mettre a jour lorsque l'observable notifie l'observateur
+	  * @param observable, l'objet que l'on observe
+	  */
 	@Override
 	public void seMettreAJour(Observable observable) {
 		
 		if(observable instanceof CentreOperation) {
 			
+			
+			//recupere la position du rover pour update sa position sur le panneau
 			Vect2D posConvertie = convertirPositionToPixel(centreOp.getPositionRover());
 			
 			
-	        roverG.setPosRover(posConvertie);
-	        repaint(); // Redessiner le panneau pour afficher la nouvelle position du rover
+	        roverG.setPosRover(posConvertie);	//set la position du rover dans le rover Graphique
+	        repaint();	 						// Redessiner le panneau pour afficher la nouvelle position du rover
 	    }
 		
 	}

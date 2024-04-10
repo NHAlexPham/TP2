@@ -1,5 +1,18 @@
 package utilitaires;
 
+/**
+ * Classe qui ecoute le bouton prendre photo
+ * 
+ * Cette classe sert a faire une action lorsque le bouton prendre photo est clique
+ * 
+ * 
+ * Services offerts:
+ *  - actionPerformed
+ * 
+ * @author Dyaa Abou Arida, ETS
+ * @version Hiver, 2024
+ */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,12 +26,14 @@ public class EcouteurBtnPrendrePhoto implements ActionListener{
 		this.centreOp = centreOp;
 	}
 	
+	
+	/*
+	 * methode qui s'effectie quand le bouton prendre photo est active  
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-
-		System.out.println("jai pris une photo"); // pour test uniquement
-		
+		//appeler la methode prendre photo dans le centre de controle
 		centreOp.prendrePhoto();
 		
 	}

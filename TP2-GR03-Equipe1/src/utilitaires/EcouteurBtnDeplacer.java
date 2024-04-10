@@ -1,5 +1,18 @@
 package utilitaires;
 
+/**
+ * Classe qui ecoute le bouton deplacer
+ * 
+ * Cette classe sert a faire une action lorsque le bouton deplacer rover est clique
+ * 
+ * 
+ * Services offerts:
+ *  - actionPerformed
+ * 
+ * @author Dyaa Abou Arida, ETS
+ * @version Hiver, 2024
+ */
+
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +27,7 @@ public class EcouteurBtnDeplacer implements ActionListener{
 	 private JTextField posCibleX;
 	 private JTextField posCibleY;
 	 
-	 private CentreOperation centreOp;
+	 private CentreOperation centreOp;	
 	 
 	 private int posX;
 	 private int posY;
@@ -27,21 +40,22 @@ public class EcouteurBtnDeplacer implements ActionListener{
 	     this.centreOp = centreOp;
 	 }
 	
+	 /*
+	  * methode qui s'execute quand le bouton deplacerRover est active
+	  */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		//juste pour tester les valeurs de sortie
-		System.out.println(posCibleX.getText());
-		System.out.println(posCibleY.getText());
 	
 		 try {
+			 	//on recupere les donnees des textfields
 		        posX = Integer.parseInt(posCibleX.getText());
 		        posY = Integer.parseInt(posCibleY.getText());
 		        
-				//trouver une facons dappeler la methode deplacer rover dans le centre doperation
+				//appel de la methode deplacerRover du centre de controle pour envoyer un message de deplacement
 	            centreOp.deplacerRover(posX, posY);
 
 		    } catch (NumberFormatException ex) {
+		    	//si jamais les nombres sont invalides ou si les champs sont vides, print un message d'erreur
 		        System.err.println("Entrez des nombres valides!");
 		    }
 		
