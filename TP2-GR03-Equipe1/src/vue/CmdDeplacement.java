@@ -20,17 +20,21 @@ import utilitaires.Observateur;
 
 public class CmdDeplacement extends JPanel implements Observateur{
 	
-	CentreOperation centreOp = CentreOperation.getInstance();
+	private CentreOperation centreOp = CentreOperation.getInstance();
 	
-	JPanel posCible = new JPanel(new GridLayout(3, 1, 0, 3));
+	private JPanel posCible = new JPanel(new GridLayout(3, 1, 0, 3));
 	
-	PosCourante posCourante = new PosCourante();
-	JPanel posCibleX = new PosCible("Pos cible X: ");
-	JPanel posCibleY = new PosCible("Pos cible Y: ");
+	private JPanel panPosCourante = new JPanel();
+	private JPanel panPosCible = new JPanel();
 	
-	JButton deplacerRover = new JButton("Deplacer Rover");
 	
-	EcouteurBtnDeplacer ect = new EcouteurBtnDeplacer(((PosCible) posCibleX).getValeur(), ((PosCible) posCibleY).getValeur(), centreOp);
+	private PosCourante posCourante = new PosCourante();
+	private JPanel posCibleX = new PosCible("Pos cible X: ");
+	private JPanel posCibleY = new PosCible("Pos cible Y: ");
+	
+	private JButton deplacerRover = new JButton("Deplacer Rover");
+	
+	private EcouteurBtnDeplacer ect = new EcouteurBtnDeplacer(((PosCible) posCibleX).getValeur(), ((PosCible) posCibleY).getValeur(), centreOp);
 	
 	
 	
@@ -38,17 +42,24 @@ public class CmdDeplacement extends JPanel implements Observateur{
 		
 		centreOp.ajouterObservateur((Observateur)this);
 		
+		this.setLayout(new BorderLayout());
+		
 		posCible.setBackground(Color.DARK_GRAY);		//set le background a gris fonce
 		posCible.setPreferredSize(new Dimension(200, 100));
 		
+		panPosCourante.add(posCourante);
 		
-		this.add(posCourante);							//ajoute la position courante au panneau de commande de deplacement
+		this.add(panPosCourante, BorderLayout.NORTH);							//ajoute la position courante au panneau de commande de deplacement
 		posCible.add(posCibleX);						//ajoute la position cible X au panneau de grid				
 		posCible.add(posCibleY);						//ajoute la position cible Y au panneau de grid	
 		posCible.add(deplacerRover);					//ajoute le bouton deplacerrover au panneau de grid
 		
-		this.add(posCible, BorderLayout.CENTER);		//ajoute le panneau de grid au panneau de commande de deplacement 
+		panPosCible.add(posCible);
 		
+		panPosCourante.setBackground(Color.DARK_GRAY);
+		panPosCible.setBackground(Color.DARK_GRAY);
+		
+		this.add(panPosCible, BorderLayout.CENTER);		//ajoute le panneau de grid au panneau de commande de deplacement 
 		this.setBackground(Color.DARK_GRAY);			//set le background a gris fonce
 		this.setBorder(BorderFactory.createLineBorder(Color.WHITE));	//set la bordure a blanc
 		

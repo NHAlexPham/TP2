@@ -70,13 +70,13 @@ public class GestionPhotos extends JPanel implements Observateur{
 		progres.setMaximum(100);
 		progres.setValue(0); // Valeur initiale
 		
-		listePhotos();
+		updateListePhotos();
 		
 		prendrePhoto.addActionListener(ect);
 		
 	}
 	
-	public void listePhotos() {
+	public void updateListePhotos() {
 		
 		
 		 DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -93,8 +93,6 @@ public class GestionPhotos extends JPanel implements Observateur{
 		    }
 
 		    liste.setModel(listModel); // Associer le modèle de liste à la JList
-		
-		
 	
 	}
 	
@@ -106,15 +104,21 @@ public class GestionPhotos extends JPanel implements Observateur{
 		
 		double valProgres = 0;
 
+
 		if(observable instanceof CentreOperation) {
 			
 			valProgres = ((CentreOperation) observable).getProgresFichier();
 			
 			 progres.setValue((int) (valProgres * 100)); // affiche le progres dans la progress bar
 			
+
+				 
+			 updateListePhotos(); //update la Jlist
+			 
+			 
 		}
 		
-			listePhotos(); //update la Jlist 
+		 
 		
 		
 	}

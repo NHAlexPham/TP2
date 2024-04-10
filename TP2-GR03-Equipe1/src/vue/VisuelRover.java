@@ -56,9 +56,6 @@ public class VisuelRover extends JPanel implements Observateur{
 		xPixel = (posMetre.getX() * width / lune.getDim_Sit().getX());
 		yPixel = (posMetre.getY() * height / lune.getDim_Sit().getY());
 		
-		//xPixel = (posMetre.getX() * this.getWidth() / lune.getDim_Sit().getX());
-		//yPixel = (posMetre.getY() * this.getHeight() / lune.getDim_Sit().getY());
-		
 		Vect2D posPixel = new Vect2D(xPixel, yPixel);
 		
 		return posPixel;
@@ -69,6 +66,10 @@ public class VisuelRover extends JPanel implements Observateur{
 		double longPixel = 0;
 		
 		longPixel = longLunaire * ((this.getWidth() / lune.getDim_Sit().getX()) + (this.getHeight() / lune.getDim_Sit().getY())) / 2;
+		
+		
+		
+		System.out.println("ca cest la longueur en pixel: " + longPixel);		
 		
 		return longPixel;
 	}

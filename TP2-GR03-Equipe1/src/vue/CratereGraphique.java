@@ -1,7 +1,9 @@
 package vue;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import modele.environnement.Cratere;
 import utilitaires.Vect2D;
@@ -35,18 +37,39 @@ public class CratereGraphique {
 	
 	public void dessine(Graphics g) {
 		
-		int r = (int) rayonConvertie;
+		int r = (int) rayonConvertie - 2;
 		int xc = (int) posConvertie.getX();
 		int yc = (int) posConvertie.getY();
 		
-        g.setColor(couleur);
-        g.fillOval( xc-r, yc-r, 2*r, 2*r);
+
+		
+		// Définit l'épaisseur du trait à 3 pixels
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(4));
+		
         
         
 		int rGris = (int) (rayonConvertie * 0.90);
         
-        g.setColor(Color.GRAY);
-        g.fillOval( xc-rGris, yc-rGris, 2*rGris, 2*rGris);
+		 // Calcule la différence de rayon entre le cercle foncé et le cercle gris
+	    int diffRayon = r - rGris;
+	    // Calcule les coordonnées du coin supérieur gauche du cercle gris pour le centrer
+	    int xGris = xc - rGris;
+	    int yGris = yc - rGris;
+
+	    // Définit une couleur grise semi-transparente
+	    Color grisSemiTransparent = new Color(128, 128, 128, 128);
+	    
+	    
+
+	    // Dessine le cercle gris
+	    g.setColor(grisSemiTransparent);
+        g.fillOval(xGris, yGris, 2 * rGris, 2 * rGris);
+        
+        
+
+        g.setColor(couleur);
+        g.drawOval( xc-r, yc-r, 2*r, 2*r);
         
         
 	}

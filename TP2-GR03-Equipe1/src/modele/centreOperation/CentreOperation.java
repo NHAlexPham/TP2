@@ -79,6 +79,10 @@ public class CentreOperation extends TransporteurMessage{
 	public double getProgresFichier() {
 		return progresFichier;
 	}
+	
+	public int getCompteurPhoto() {
+		return compteurPhoto;
+	}
 
 	/**
 	 * Méthode permettant d'obtenir une référence sur le centre de contrôle
