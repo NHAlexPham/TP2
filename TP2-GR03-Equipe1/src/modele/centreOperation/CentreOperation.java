@@ -154,14 +154,18 @@ public class CentreOperation extends TransporteurMessage{
 					
 
 					tailleCourante += (double)morceauIm.getMorceau().length;
+					System.out.println("Taille: " + tailleCourante);
 					progresFichier = tailleCourante/morceauIm.getTailleTotale();
+					System.out.println("Progress: " + progresFichier);
+
+					notifierObservateurs();
 					
 				}else {
 					// ferme le fichier
 					streamSortie.close();
 					photo = null;
 					compteurPhoto++;
-					
+					notifierObservateurs();
 					System.out.println("Reception d'une photo, terminé");
 					
 				}
@@ -183,5 +187,16 @@ public class CentreOperation extends TransporteurMessage{
 
 		return positionRover;
 	}
-	
+
+	public  double getProgresFichier(){
+		return progresFichier;
+	}
+
+	public double getTailleCourante() {
+		return tailleCourante;
+	}
+
+	public int getCompteurPhoto() {
+		return compteurPhoto;
+	}
 }

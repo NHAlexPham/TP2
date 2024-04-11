@@ -14,6 +14,7 @@ package modele.rover;
  * @version Hiver, 2024
  */
 
+import modele.centreOperation.CentreOperation;
 import modele.communication.CmdDeplacerRover;
 import modele.communication.Commande;
 import modele.environnement.Lune;
@@ -175,4 +176,9 @@ public class Rover extends TransporteurMessage {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public static int getTailleChunk() {
+		return TAILLE_CHUNK;
+	}
+
 }

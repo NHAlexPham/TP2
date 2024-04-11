@@ -1,8 +1,7 @@
 package vue;
 
-import controleur.MonObserver.Observable;
-import controleur.MonObserver.Observateur;
 import vue.centreOperation.Console;
+import vue.visuelRover.VisuelRover;
 
 import javax.swing.*;
 import java.awt.*;

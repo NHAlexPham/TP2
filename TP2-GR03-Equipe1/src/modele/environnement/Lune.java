@@ -146,4 +146,12 @@ public class Lune {
 	public ArrayList<Cratere> getCrateres() {
 		return crateres;
 	}
+
+	public Vect2D getDimSite(){
+		return DIM_SITE;
+	}
+
+	public Vect2D getCentre(){
+		return CENTRE;
+	}
 }
