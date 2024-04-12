@@ -17,13 +17,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 public class TexteGraphique {
+	
+	
+	// Position du texte
+    private int x = 90;
+    private int y = 20;
+
 
 	public void dessinerTexte(Graphics g) {
 	    
-		// Position du texte
-	    int x = 68;
-	    int y = 20;
-
 	    // Définir la police et la taille des nombres a afficher
 	    Font font = new Font("Times New Roman", Font.PLAIN, 25);
 	    
@@ -42,7 +44,7 @@ public class TexteGraphique {
 	    for(int i = 0; i < 20; i++) {
 	    	
 	    	// Dessine le texte vertical
-	    	g.drawString("" + i * 20, y - 20, i* x);
+	    	g.drawString("" + i * 20, y - 20, (i* (x - 25)) - 8);
 	    }
 	   
 	}

@@ -45,15 +45,18 @@ public class VisuelRover extends JPanel implements Observateur{
 	private ArrayList<Cratere> listeCratere = new ArrayList<>();
 	
 	private RoverGraphique roverG = new RoverGraphique(centreOp.getPositionRover());
-
+	
+	private int largeurPan = 900;
+	private int hauteurPan = 650;
 	
 	public VisuelRover() {
+		
 		
 		centreOp.ajouterObservateur(this);		//ajoute le panneau visuel rover a la liste des observateur du centre operation
 		
 		this.listeCratere = lune.getCrateres();	//recuperer la liste des crateres de la lune
 
-		this.setSize(1200, 750);				//set la taille du panneau
+		this.setSize(largeurPan, hauteurPan);				//set la taille du panneau
 		
 		ajouterCratereGraphique();				//ajouter les crateres graphiques au viseul rover
 		
@@ -67,13 +70,9 @@ public class VisuelRover extends JPanel implements Observateur{
 		
 		double xPixel = 0;
 		double yPixel = 0;
-		
-		
-		int width = getSize().width; // Taille actuelle en pixels du panneau
-		int height = getSize().height;
 
-		xPixel = (posMetre.getX() * width / lune.getDim_Sit().getX());
-		yPixel = (posMetre.getY() * height / lune.getDim_Sit().getY());
+		xPixel = (posMetre.getX() * largeurPan / lune.getDim_Sit().getX());
+		yPixel = (posMetre.getY() * hauteurPan / lune.getDim_Sit().getY());
 		
 		Vect2D posPixel = new Vect2D(xPixel, yPixel);
 		
@@ -89,7 +88,7 @@ public class VisuelRover extends JPanel implements Observateur{
 		
 		double longPixel = 0;
 		
-		longPixel = longLunaire * ((this.getWidth() / lune.getDim_Sit().getX()) + (this.getHeight() / lune.getDim_Sit().getY())) / 2;		
+		longPixel = longLunaire * ((largeurPan / lune.getDim_Sit().getX()) + (hauteurPan / lune.getDim_Sit().getY())) / 2;		
 		
 		return longPixel;
 	}
@@ -137,15 +136,19 @@ public class VisuelRover extends JPanel implements Observateur{
 	 */
 	public void dessinerGrid(Graphics g) {
 		
-		
-		double conv = 68;	//distance entre chaques lignes
-		
+	
 		//boucle qui place les 20 lignes verticales et les 20 lignes horizontales au bons endroits
-		
 		for(int i = 1; i <= 20; i++) {
 			
-			Ligne ligneH = new Ligne(0, i * conv, 3000, i * conv);
-			Ligne ligneV = new Ligne(i * conv, 0, i * conv, 3000);
+			Vect2D conv1 =  convertirPositionToPixel(new Vect2D(0, i *20));	//distance entre chaques lignes
+			Vect2D conv2 =  convertirPositionToPixel(new Vect2D(3000, i * 20));	//distance entre chaques lignes
+			
+			Vect2D conv3 =  convertirPositionToPixel(new Vect2D(i * 20, 0));	//distance entre chaques lignes
+			Vect2D conv4 =  convertirPositionToPixel(new Vect2D(i * 20, 3000));	//distance entre chaques lignes
+			
+			
+			Ligne ligneH = new Ligne(conv1, conv2);
+			Ligne ligneV = new Ligne(conv3, conv4);
 			
 			LigneGraphique ligneGH = new LigneGraphique(ligneH);	
 			LigneGraphique ligneGV = new LigneGraphique(ligneV);
@@ -188,8 +191,7 @@ public class VisuelRover extends JPanel implements Observateur{
 			
 			//recupere la position du rover pour update sa position sur le panneau
 			Vect2D posConvertie = convertirPositionToPixel(centreOp.getPositionRover());
-			
-			
+	
 	        roverG.setPosRover(posConvertie);	//set la position du rover dans le rover Graphique
 	        repaint();	 						// Redessiner le panneau pour afficher la nouvelle position du rover
 	    }

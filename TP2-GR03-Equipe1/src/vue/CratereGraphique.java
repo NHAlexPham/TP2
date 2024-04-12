@@ -61,8 +61,8 @@ public class CratereGraphique {
 	public void dessine(Graphics g) {
 		
 		int r = (int) rayonConvertie - 2;		//rayon du cercle externe
-		int xc = (int) posConvertie.getX();		//position x du cercle externe
-		int yc = (int) posConvertie.getY();		//position y du celrcle externe
+		int xc = (int) (posConvertie.getX() * 1.15);		//position x du cercle externe
+		int yc = (int) (posConvertie.getY() * 1.15);		//position y du celrcle externe
 		
 
 		

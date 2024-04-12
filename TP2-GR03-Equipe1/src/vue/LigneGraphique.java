@@ -34,6 +34,7 @@ public class LigneGraphique {
 		
 	}
 	
+	
 	/*
 	 * methode qui permet de dessiner la ligne
 	 * @param g, parametre graphique

@@ -124,6 +124,7 @@ public class GestionPhotos extends JPanel implements Observateur{
 		if(observable instanceof CentreOperation) {
 			
 			valProgres = ((CentreOperation) observable).getProgresFichier(); //obtient le progres du centre Op
+			progres.setStringPainted(true);
 			progres.setValue((int) (valProgres * 100)); 					 //affiche le progres dans la progress bar
 			
 
