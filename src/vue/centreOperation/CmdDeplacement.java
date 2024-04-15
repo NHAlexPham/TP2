@@ -24,23 +24,41 @@ public class CmdDeplacement extends JPanel {
     }
 
     private void initialiserComposants() {
+        JPanel main = new JPanel(new GridLayout(3, 1,0,5));
+        JPanel label = new JPanel();
+        JPanel field = new JPanel(new BorderLayout(0,5));
+        JPanel button = new JPanel(new BorderLayout(0,0));
+        btnDeplacer = new JButton("Déplacer Rover");
+        btnDeplacer.setFocusable(false);
+
+        main.setBackground(Color.DARK_GRAY);
+
+        //label.setPreferredSize(new Dimension(0,0));
+        label.setBackground(Color.DARK_GRAY);
+        label.add(classCourante);
+
+        field.setPreferredSize(new Dimension(250,50));
+        field.setBackground(Color.DARK_GRAY);
+        field.add(classDefenir);
+
+
+        //button.setPreferredSize(new Dimension(250,40));
+        button.setBackground(Color.DARK_GRAY);
+        button.add(btnDeplacer);
+
+
+        main.add(label);
+        main.add(field);
+        main.add(button);
+        add(main);
+
+        this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+
         // Ajouter Observer !
-        CentreOperation centreOp = CentreOperation.getInstance();
-        centreOp.ajouterObservateur(classCourante);
-
-
-        JPanel main = new JPanel(new BorderLayout(5, 5));
-        btnDeplacer = new JButton("Button");
-        main.add(classCourante, BorderLayout.NORTH);
-        main.add(classDefenir, BorderLayout.CENTER);
-
-        //
         ControleurDeplacement ecouteur = new ControleurDeplacement(classDefenir.txtPosX, classDefenir.txtPosY,btnDeplacer);
         btnDeplacer.addActionListener(ecouteur);
-
-        main.add(btnDeplacer, BorderLayout.SOUTH);
-        add(main);
-        this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        CentreOperation centreOp = CentreOperation.getInstance();
+        centreOp.ajouterObservateur(classCourante);
     }
 
     public class ClassPositionCourante extends JPanel implements Observateur{
@@ -48,33 +66,24 @@ public class CmdDeplacement extends JPanel {
 
         public ClassPositionCourante(){
             Initial();
+            //setBackground(Color.WHITE);
             setLayout(new BorderLayout());
-            JPanel panel = new JPanel(new GridLayout(1, 2,10,10));
+            setPreferredSize(new Dimension(195,40));
+            JPanel panel = new JPanel(new GridLayout(1, 2,0,0));
             panel.add(lblTextPosX);
             panel.add(lblPosX);
-            JPanel panel2 = new JPanel(new GridLayout(1, 2,10,10));
+            JPanel panel2 = new JPanel(new GridLayout(1, 2,0,0));
             panel2.add(lblTextPosY);
             panel2.add(lblPosY);
             add(panel,BorderLayout.NORTH);
             add(panel2,BorderLayout.SOUTH);
         }
 
-        public void ecrit(double posX, double posY){
-            this.lblPosX.setText(""+posX);
-            this.lblPosY.setText(""+posY);
-        }
-
         private void Initial() {
-            this.lblTextPosX = new JLabel("Pos Courante X:");
-            this.lblTextPosY = new JLabel("Pos Courante Y");
+            this.lblTextPosX = new JLabel("Pos Courante X: ");
+            this.lblTextPosY = new JLabel("Pos Courante Y: ");
             this.lblPosX = new JLabel("0");
             this.lblPosY = new JLabel("0");
-        }
-
-        public void ecritTexte(String lol, String haha) {
-            System.out.println("Ecrit Texte !");
-            this.lblPosX.setText("lol");
-            this.lblPosY.setText(haha);
         }
 
         @Override
@@ -109,17 +118,17 @@ public class CmdDeplacement extends JPanel {
 
         public ClassDefinirPosition(){
             Initial();
-            setLayout(new BorderLayout());
-            JPanel panel = new JPanel(new GridLayout(1, 2,10,10));
+            setBackground(Color.DARK_GRAY);
+            setLayout(new GridLayout(2,1,0,5));
+            //setPreferredSize(new Dimension(210,50));
+            JPanel panel = new JPanel(new GridLayout(1, 2,0,0));
             panel.add(lblPosX);
             panel.add(txtPosX);
-            //int eb=10;
-            //panel.setBorder(BorderFactory.createEmptyBorder(eb, eb, eb, eb));
-            JPanel panel2 = new JPanel(new GridLayout(1, 2,10,10));
+            JPanel panel2 = new JPanel(new GridLayout(1, 2,0,0));
             panel2.add(lblPosY);
             panel2.add(txtPosY);
-            add(panel,BorderLayout.NORTH);
-            add(panel2,BorderLayout.SOUTH);
+            add(panel);
+            add(panel2);
         }
 
         private void Initial() {

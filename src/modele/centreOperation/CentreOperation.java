@@ -49,7 +49,8 @@ public class CentreOperation extends TransporteurMessage{
 	// reçu dans un fichier
 	private File photo = null;
     FileOutputStream streamSortie;
-    int compteurPhoto = 0;
+    int compteurPhoto;
+	File[] listOfFiles;
     
     Vect2D positionRover = null;
     double progresFichier = 0.0;
@@ -69,6 +70,9 @@ public class CentreOperation extends TransporteurMessage{
      */
 	private CentreOperation(){
 		super();
+		File folder = new File("photos/");
+		listOfFiles = folder.listFiles();
+		compteurPhoto = listOfFiles.length;
 	}
 
 	/**
@@ -154,9 +158,9 @@ public class CentreOperation extends TransporteurMessage{
 					
 
 					tailleCourante += (double)morceauIm.getMorceau().length;
-					System.out.println("Taille: " + tailleCourante);
+					//System.out.println("Taille: " + tailleCourante);
 					progresFichier = tailleCourante/morceauIm.getTailleTotale();
-					System.out.println("Progress: " + progresFichier);
+					//System.out.println("Progress: " + progresFichier);
 
 					notifierObservateurs();
 					

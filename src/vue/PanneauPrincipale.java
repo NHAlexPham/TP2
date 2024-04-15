@@ -24,17 +24,26 @@ public class PanneauPrincipale extends JPanel {
         GridBagConstraints d = new GridBagConstraints();
 
         // Visuel Rover 75% de la vue
+//        c.fill = GridBagConstraints.BOTH;
+//        c.weightx = 0.75;
+//        c.weighty = 1;
+        c.gridx = 0;
+        c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
-        c.weightx = 0.75;
+        c.weightx = 1;
         c.weighty = 1;
-
+        this.add(visuelRover, c);
 
         // Console 25% de la vue
-        d.fill = GridBagConstraints.BOTH;
-        d.weightx = 0.25;
-        d.weighty = 1;
-        this.add(visuelRover, c);
-        this.add(console, d);
+//        d.fill = GridBagConstraints.BOTH;
+//        d.weightx = 0.25;
+//        d.weighty = 1;
+        c.gridx = 1;
+        c.gridheight = 2;
+        c.weighty = 1;
+        c.weightx = 0;
+        c.fill = GridBagConstraints.BOTH;
+        this.add(console, c);
     }
 
 }

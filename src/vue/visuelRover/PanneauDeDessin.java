@@ -4,20 +4,17 @@ import controleur.MonObserver.Observable;
 import controleur.MonObserver.Observateur;
 import modele.centreOperation.CentreOperation;
 import modele.environnement.Cratere;
-import modele.environnement.Figure.Cercle;
-import modele.environnement.Figure.CercleGraphique;
-import modele.environnement.Figure.Point;
+import vue.Graphiques.CratereGraphique;
 import modele.environnement.Lune;
 import utilitaires.Vect2D;
+import vue.Graphiques.RoverGraphique;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class PanneauDeDessin extends JPanel implements Observateur {
-    CercleGraphique gCercle;
+
     ArrayList<Cratere> crateres;
     Lune lune;
     VisuelRover visuel;
@@ -29,7 +26,7 @@ public class PanneauDeDessin extends JPanel implements Observateur {
         this.visuel = visuel;
         lune = Lune.getInstance();
         this.crateres = lune.getCrateres();
-
+        setBackground(Color.WHITE);
         //this.positionRover = CentreOperation.getInstance().getPositionRover();
     }
 
@@ -51,9 +48,10 @@ public class PanneauDeDessin extends JPanel implements Observateur {
         for (int i = 0; i < this.getHeight(); i+=this.getHeight()/10) {
             drawDashedLine(g,0,i,(int) visuel.convertirLongueurToPixel(this.getWidth()),i);
         }
-        dessinerRover(g);
+
         dessinerLabel(g);
         dessinerCratere(g);
+        dessinerRover(g);
     }
 
     private void dessinerLabel(Graphics g) {
@@ -73,18 +71,11 @@ public class PanneauDeDessin extends JPanel implements Observateur {
     private void dessinerRover(Graphics g) {
         Vect2D vect2D = centreOperation.getPositionRover();
         if(centreOperation.getPositionRover() != null){
-            //System.out.println("Pos X : " + vect2D.getX());
-            //System.out.println("Pos Y : " + vect2D.getY());
             if(vect2D != null){
                 vect2D = visuel.convertirPositionToPixel(vect2D);
-                Point point = new Point(
-                        vect2D.getX(),
-                        vect2D.getY());
-                Cercle cercle = new Cercle(point,visuel.convertirLongueurToPixel(2));
-                CercleGraphique cercleGraphique = new CercleGraphique(cercle,Color.blue);
-                cercleGraphique.dessine(g);
+                RoverGraphique roverGraphique = new RoverGraphique(vect2D);
+                roverGraphique.dessine(g);
             }
-
         }
 
     }
@@ -93,14 +84,17 @@ public class PanneauDeDessin extends JPanel implements Observateur {
         Lune lune = Lune.getInstance();
         ArrayList<Cratere> crateres = lune.getCrateres();
         for (Cratere cratere : crateres){
-            Vect2D vect2D = cratere.getPosition();
-            Cercle cercle = new Cercle(new Point(visuel.convertirLongueurToPixel(vect2D.getX()),
-                    visuel.convertirLongueurToPixel(vect2D.getY())),
-                    visuel.convertirLongueurToPixel(cratere.getRayon()));
-            CercleGraphique cercleGraphique = new CercleGraphique(cercle,Color.BLACK);
-            cercleGraphique.dessine(g);
+            Vect2D vect2D = visuel.convertirPositionToPixel(cratere.getPosition());
+
+            CratereGraphique centre = new CratereGraphique(vect2D,
+                    cratere.getRayon(),
+                    Color.LIGHT_GRAY);
+            centre.dessine(g);
+
+            CratereGraphique contour = new CratereGraphique(vect2D,(cratere.getRayon()*0.9),Color.BLACK);
+            contour.dessine(g);
+
         }
-        //repaint();
     }
 
     public void drawDashedLine(Graphics g, int x1, int y1, int x2, int y2){
@@ -120,24 +114,18 @@ public class PanneauDeDessin extends JPanel implements Observateur {
         g2d.dispose();
     }
 
-    public CercleGraphique gCercle() {
-        return gCercle;
-    }
-
-    public void setGCercle(CercleGraphique gCercle) {
-        this.gCercle = gCercle;
-    }
-
     @Override
     public void seMettreAJour(Observable observable) {
         if (observable instanceof CentreOperation){
             CentreOperation centre = (CentreOperation) observable;
+
+            // Position inchanger...
+            // Conflit avec Photo...
             if(centre.getPositionRover() != null){
-                //this.positionRover = centre.getPositionRover();
+                this.positionRover = centre.getPositionRover();
                 dessinerRover(graphics);
             }
-            repaint();
-
         }
+        repaint();
     }
 }

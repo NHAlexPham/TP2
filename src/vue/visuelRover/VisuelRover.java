@@ -1,15 +1,10 @@
 package vue.visuelRover;
 
-import modele.environnement.Cratere;
-import modele.environnement.Figure.Cercle;
-import modele.environnement.Figure.Point;
-import modele.environnement.Figure.CercleGraphique;
 import modele.environnement.Lune;
 import utilitaires.Vect2D;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class VisuelRover extends JPanel {
 
@@ -23,10 +18,8 @@ public class VisuelRover extends JPanel {
         Lune lune = Lune.getInstance();
         setPreferredSize(new Dimension(900, 800));
         PanneauDeDessin panneau = new PanneauDeDessin(this);
-        //panneau.setBackground(Color.lightGray);
-
+        //setBackground(Color.lightGray);
         add(panneau);
-
     }
 
 

@@ -23,25 +23,36 @@ public class GestionPhotos extends JPanel implements Observateur {
 
     private void initialiserComposants() {
         Initial();
-        JPanel main = new JPanel(new BorderLayout(10,10));
         setBackground(Color.DARK_GRAY);
-        JPanel panel = new JPanel(new GridLayout(2, 1,10,10));
-        panel.add(btnPhoto);
-        panel.add(progressBar);
-        int eb=10;
-        panel.setBorder(BorderFactory.createEmptyBorder(eb, eb, eb, eb));
-        JPanel panel2 = new JPanel();
-        panel2.add(listPhotos);
-        main.add(panel,BorderLayout.NORTH);
-        main.add(panel2,BorderLayout.CENTER);
+        JPanel main = new JPanel(new BorderLayout(0,5));
+        main.setBackground(Color.DARK_GRAY);
+        JPanel buttonProgress = new JPanel();
+        buttonProgress.setBackground(Color.DARK_GRAY);
+        buttonProgress.setPreferredSize(new Dimension(200,60));
+        btnPhoto.setFocusable(false);
 
-        CentreOperation centreOp = CentreOperation.getInstance();
-        centreOp.ajouterObservateur(this);
 
-        ControleurPhoto ecouteurPhoto = new ControleurPhoto(btnPhoto,progressBar,listPhotos);
-        btnPhoto.addActionListener(ecouteurPhoto);
+
+        JPanel jPanel = new JPanel(new GridLayout(2,1,0,5));
+        jPanel.setBackground(Color.DARK_GRAY);
+
+        jPanel.add(btnPhoto);
+        jPanel.add(progressBar);
+        buttonProgress.add(jPanel);
+
+        //liste.add(listPhotos);
+
+        main.add(buttonProgress,BorderLayout.NORTH);
+        main.add(listPhotos,BorderLayout.CENTER);
 
         add(main);
+        this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+
+        //
+        CentreOperation centreOp = CentreOperation.getInstance();
+        centreOp.ajouterObservateur(this);
+        ControleurPhoto ecouteurPhoto = new ControleurPhoto(btnPhoto,progressBar,listPhotos);
+        btnPhoto.addActionListener(ecouteurPhoto);
     }
 
     private void Initial() {
@@ -49,20 +60,13 @@ public class GestionPhotos extends JPanel implements Observateur {
         this.progressBar = new JProgressBar();
         this.progressBar.setStringPainted(true);
         this.listPhotos = new JList();
+        this.listPhotos.setPreferredSize(new Dimension(250,200));
         peuplerList();
     }
 
     private void peuplerList() {
         File folder = new File("photos/");
         File[] listOfFiles = folder.listFiles();
-
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                System.out.println("File " + listOfFiles[i].getName());
-            } else if (listOfFiles[i].isDirectory()) {
-                System.out.println("Directory " + listOfFiles[i].getName());
-            }
-        }
         this.listPhotos.setListData(listOfFiles);
         updateUI();
     }
@@ -70,13 +74,12 @@ public class GestionPhotos extends JPanel implements Observateur {
     @Override
     public void seMettreAJour(Observable observable) {
         if (observable instanceof CentreOperation){
-            CentreOperation centre = (CentreOperation)observable;
-            int num = (int) (centre.getProgresFichier()*100);
-            //System.out.println("NUM: " + num);
-            this.progressBar.setValue(num);
-            //int counter = centre.getCompteurPhoto();
-            //System.out.println("Count: "+centre.getCompteurPhoto());
-            peuplerList();
+            if (((CentreOperation) observable).getProgresFichier() != 0){
+                CentreOperation centre = (CentreOperation)observable;
+                int num = (int) (centre.getProgresFichier()*100);
+                this.progressBar.setValue(num);
+                peuplerList();
+            }
 
         }
 

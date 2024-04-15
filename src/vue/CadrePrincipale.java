@@ -18,7 +18,7 @@ public class CadrePrincipale extends JFrame{
     }
 
     private void configurerFenetre() {
-        this.setSize(1000,500);
+        this.setSize(1200,700);
         this.setLocation(100,100);
         //this.setResizable(false);
         JFrame frame = this;

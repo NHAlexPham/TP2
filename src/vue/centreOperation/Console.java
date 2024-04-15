@@ -16,6 +16,9 @@ public class Console extends JPanel {
     }
 
     private void initialiserComposants() {
+        setMinimumSize(new Dimension(350, 100));
+        setMaximumSize(new Dimension(350, 100));
+        setPreferredSize(new Dimension(350, 100));
         cmdDeplacement = new CmdDeplacement();
         GestionPhotos gestionPhotos = new GestionPhotos();
         cmdDeplacement.setBackground(Color.DARK_GRAY);
